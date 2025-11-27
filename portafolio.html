@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portafolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <span class="logo-text">PORTAFOLIO</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#inicio">🏠 INICIO</a></li>
+                <li><a href="#sobre-mi">👤 SOBRE MÍ</a></li>
+                <li><a href="#habilidades">🛠️ HABILIDADES</a></li>
+                <li><a href="#proyectos">📂 PROYECTOS</a></li>
+                <li><a href="#contacto">📧 CONTACTO</a></li>
+            </ul>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        </nav>
+    </header>
+
+    
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <div class="hero-badge">¡HOLA!, Soy Miguel Obed</div>
+            <h1 class="hero-title" id="heroName">DESARROLLADOR WEB</h1>
+            <p class="hero-subtitle">Creando experiencias digitales increíbles</p>
+            <div class="hero-buttons">
+                <a href="#proyectos" class="btn-primary">VER PROYECTOS</a>
+                <a href="#contacto" class="btn-secondary">CONTACTAR</a>
+            </div>
+        </div>
+        <div class="hero-decoration">
+            <div class="comic-bubble">
+                <span>💻</span>
+                <div class="bubble-text">¡CODE!</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE MÍ -->
+    <section class="section about" id="sobre-mi">
+        <div class="container">
+            <h2 class="section-title">👤 SOBRE MÍ</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="image-frame">
+                        <div class="placeholder-avatar">👨‍💻</div>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <div class="comic-card">
+                        <h3>¡Hola!</h3>
+                        <p>
+                            Soy un desarrollador apasionado por crear soluciones innovadoras 
+                            y experiencias web únicas. Me encanta aprender nuevas tecnologías 
+                            y enfrentar desafíos creativos.
+                        </p>
+                        <p>
+                            Mi objetivo es combinar diseño atractivo con funcionalidad 
+                            excepcional para crear productos que marquen la diferencia.
+                        </p>
+                        <div class="about-stats">
+                            <div class="stat-item">
+                                <span class="stat-number" id="projectCount">0</span>
+                                <span class="stat-label">Proyectos</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">+5</span>
+                                <span class="stat-label">Tecnologías</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Pasión</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="section skills" id="habilidades">
+        <div class="container">
+            <h2 class="section-title">🛠️ HABILIDADES</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">🌐</div>
+                    <h3>FRONTEND</h3>
+                    <p>HTML, CSS, JavaScript, React</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">⚙️</div>
+                    <h3>BACKEND</h3>
+                    <p>java,Python</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🗄️</div>
+                    <h3>BASES DE DATOS</h3>
+                    <p>MongoDB, MySQL, PostgreSQL</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🔧</div>
+                    <h3>HERRAMIENTAS</h3>
+                    <p>Git, VS Code, Figma</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <section class="section projects" id="proyectos">
+        <div class="container">
+            <h2 class="section-title">📂 MIS PROYECTOS</h2>
+            <div class="projects-grid" id="projectsGrid">
+                <div class="loading-message">⏳ Cargando proyectos...</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section contact" id="contacto">
+        <div class="container">
+            <h2 class="section-title">📧 CONTACTO</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="comic-card">
+                        <h3>¡Hablemos!</h3>
+                        <p>¿Tienes un proyecto en mente? ¿Quieres colaborar? </p>
+                        <div class="contact-links">
+                            <a href="mailto:tu@email.com" class="contact-link">
+                                <span class="contact-icon">📧</span>
+                                <span>Gmail</span>
+                            </a>
+                            <a href="https://github.com" target="_blank" class="contact-link">
+                                <span class="contact-icon">💻</span>
+                                <span>GitHub</span>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" class="contact-link">
+                                <span class="contact-icon">💼</span>
+                                <span>LinkedIn</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-container">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="contactName">👤 NOMBRE</label>
+                            <input type="text" id="contactName" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">📧 EMAIL</label>
+                            <input type="email" id="contactEmail" placeholder="tu@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage">💬 MENSAJE</label>
+                            <textarea id="contactMessage" placeholder="Tu mensaje..." rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">🚀 ENVIAR MENSAJE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    <span class="footer-logo">PORTAFOLIO</span>
+                </p>
+                <p class="footer-copyright">
+                    © 2024 
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    
+    <div class="modal" id="projectModal" style="display: none;">
+        <div class="modal-content modal-large">
+            <button class="modal-close" onclick="closeProjectModal()">✖</button>
+            <div id="modalContent">
+             
+            </div>
+        </div>
+    </div>
+
+    <script src="portfolio.js"></script>
+</body>
+</html>
