@@ -43,7 +43,7 @@ body::before {
     z-index: 1;
 }
 
-/* ==================== HEADER ==================== */
+
 .header {
     position: fixed;
     top: 0;
@@ -106,7 +106,7 @@ body::before {
     font-family: 'Bangers', cursive;
 }
 
-/* ==================== HERO ==================== */
+
 .hero {
     min-height: 100vh;
     display: flex;
@@ -191,7 +191,7 @@ body::before {
     margin-top: 0.5rem;
 }
 
-/* ==================== BOTONES ==================== */
+
 .btn-primary, .btn-secondary {
     display: inline-block;
     padding: 1rem 2rem;
@@ -228,7 +228,7 @@ body::before {
     transform: translate(-3px, -3px);
 }
 
-/* ==================== SECCIONES ==================== */
+
 .section {
     padding: 5rem 0;
     position: relative;
@@ -249,7 +249,7 @@ body::before {
     letter-spacing: 3px;
 }
 
-/* ==================== SOBRE MÍ ==================== */
+
 .about-content {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -323,7 +323,6 @@ body::before {
     font-size: 0.85rem;
 }
 
-/* ==================== HABILIDADES ==================== */
 .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -362,7 +361,7 @@ body::before {
     color: #666;
 }
 
-/* ==================== PROYECTOS ==================== */
+
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -473,7 +472,6 @@ body::before {
     box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.3);
 }
 
-/* ==================== CONTACTO ==================== */
 .contact-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -554,7 +552,7 @@ body::before {
     min-height: 120px;
 }
 
-/* ==================== FOOTER ==================== */
+
 .footer {
     background: #1a1a1a;
     color: white;
@@ -579,7 +577,7 @@ body::before {
     font-weight: 600;
 }
 
-/* ==================== MODAL ==================== */
+
 .modal {
     position: fixed;
     top: 0;
@@ -650,7 +648,7 @@ body::before {
     margin-bottom: 1.5rem;
 }
 
-/* ==================== RESPONSIVE ==================== */
+
 @media (max-width: 992px) {
     .about-content {
         grid-template-columns: 1fr;

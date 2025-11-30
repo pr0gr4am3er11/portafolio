@@ -1,12 +1,12 @@
-// ==================== CONFIGURACIÓN ====================
+
 const API_URL = 'https://portfolio-api-three-black.vercel.app/api/v1';
 
-// ID del usuario cuyo portafolio se mostrará (cambiar por el ID real)
-const USER_ID = ''; // Dejar vacío para cargar todos los proyectos públicos
+
+const USER_ID = ''; 
 
 let projects = [];
 
-// ==================== INICIALIZACIÓN ====================
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Portafolio cargado');
     loadProjects();
@@ -15,13 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function setupEventListeners() {
-    // Formulario de contacto
+    
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', handleContactSubmit);
     }
 
-    // Cerrar modal al hacer clic fuera
+    
     const modal = document.getElementById('projectModal');
     if (modal) {
         modal.addEventListener('click', (e) => {
@@ -31,14 +31,14 @@ function setupEventListeners() {
         });
     }
 
-    // Tecla ESC para cerrar modal
+    
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             closeProjectModal();
         }
     });
 
-    // Scroll suave para links de navegación
+    
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -48,14 +48,14 @@ function setupEventListeners() {
                     behavior: 'smooth',
                     block: 'start'
                 });
-                // Cerrar menú móvil si está abierto
+                
                 document.querySelector('.nav-links')?.classList.remove('active');
             }
         });
     });
 }
 
-// ==================== MENÚ MÓVIL ====================
+
 function toggleMenu() {
     const navLinks = document.querySelector('.nav-links');
     if (navLinks) {
@@ -63,7 +63,7 @@ function toggleMenu() {
     }
 }
 
-// ==================== CARGAR PROYECTOS ====================
+
 async function loadProjects() {
     const projectsGrid = document.getElementById('projectsGrid');
     if (!projectsGrid) return;
@@ -71,7 +71,7 @@ async function loadProjects() {
     projectsGrid.innerHTML = '<div class="loading-message">⏳ Cargando proyectos...</div>';
 
     try {
-        // Intentar cargar proyectos públicos
+        
         const url = USER_ID 
             ? `${API_URL}/projects/user/${USER_ID}` 
             : `${API_URL}/projects/public`;
@@ -83,9 +83,9 @@ async function loadProjects() {
             }
         });
 
-        // Si no existe endpoint público, intentar sin autenticación
+        
         if (response.status === 404) {
-            // Intentar endpoint alternativo
+            
             const altResponse = await fetch(`${API_URL}/projects`, {
                 method: 'GET'
             });
@@ -98,7 +98,7 @@ async function loadProjects() {
                 return;
             }
             
-            // Mostrar proyectos de demostración
+            
             loadDemoProjects();
             return;
         }
@@ -117,7 +117,6 @@ async function loadProjects() {
     }
 }
 
-// Sin proyectos disponibles
 function loadDemoProjects() {
     projects = [];
     displayProjects();
@@ -168,7 +167,7 @@ function updateProjectCount() {
     }
 }
 
-// ==================== MODAL DE PROYECTO ====================
+
 function openProjectModal(projectId) {
     const project = projects.find(p => p._id === projectId);
     if (!project) return;
@@ -225,7 +224,7 @@ function closeProjectModal() {
     }
 }
 
-// ==================== FORMULARIO DE CONTACTO ====================
+
 function handleContactSubmit(e) {
     e.preventDefault();
 
@@ -238,17 +237,17 @@ function handleContactSubmit(e) {
         return;
     }
 
-    // Simular envío
+    
     showNotification('¡Mensaje enviado correctamente! Te contactaré pronto.', 'success');
     e.target.reset();
 
-    // Aquí podrías integrar con un servicio como EmailJS, Formspree, etc.
+    
     console.log('Mensaje de contacto:', { name, email, message });
 }
 
-// ==================== NOTIFICACIONES ====================
+
 function showNotification(message, type = 'info') {
-    // Crear contenedor si no existe
+    
     let container = document.getElementById('notificationContainer');
     if (!container) {
         container = document.createElement('div');
@@ -295,7 +294,7 @@ function showNotification(message, type = 'info') {
     }, 4000);
 }
 
-// ==================== ANIMACIONES AL SCROLL ====================
+
 function animateOnScroll() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -306,7 +305,7 @@ function animateOnScroll() {
         });
     }, { threshold: 0.1 });
 
-    // Observar elementos para animar
+    
     document.querySelectorAll('.project-card, .skill-card, .comic-card').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
@@ -315,7 +314,7 @@ function animateOnScroll() {
     });
 }
 
-// ==================== UTILIDADES ====================
+
 function escapeHtml(text) {
     if (!text) return '';
     const map = {
@@ -334,7 +333,7 @@ function truncateText(text, maxLength) {
     return text.substring(0, maxLength).trim() + '...';
 }
 
-// ==================== EXPOSICIÓN GLOBAL ====================
+
 window.toggleMenu = toggleMenu;
 window.openProjectModal = openProjectModal;
 window.closeProjectModal = closeProjectModal;
