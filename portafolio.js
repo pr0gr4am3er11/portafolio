@@ -1,11 +1,9 @@
-
 const API_URL = 'https://portfolio-api-three-black.vercel.app/api/v1';
 
 
-const USER_ID = ''; 
+const USER_ID = '692b84a799fcc4c188c1e862'; 
 
 let projects = [];
-
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Portafolio cargado');
@@ -64,17 +62,57 @@ function toggleMenu() {
 }
 
 
+// ⭐ FUNCIÓN CORREGIDA - Ahora filtra correctamente por USER_ID
 async function loadProjects() {
     const projectsGrid = document.getElementById('projectsGrid');
     if (!projectsGrid) return;
 
     projectsGrid.innerHTML = '<div class="loading-message">⏳ Cargando proyectos...</div>';
 
+    // Validar que USER_ID esté configurado
+    if (!USER_ID || USER_ID.trim() === '') {
+        projectsGrid.innerHTML = `
+            <div style="
+                text-align: center;
+                padding: 3rem 2rem;
+                background: white;
+                border: 5px solid #FFE66D;
+                box-shadow: 5px 5px 0 rgba(0,0,0,0.3);
+                margin: 2rem auto;
+                max-width: 700px;
+                border-radius: 10px;
+            ">
+                <h3 style="color: #FF6B6B; font-family: 'Bangers', cursive; font-size: 2rem; margin-bottom: 1.5rem;">
+                    ⚠️ CONFIGURACIÓN NECESARIA
+                </h3>
+                <p style="margin-bottom: 1.5rem; line-height: 1.8; font-size: 1.1rem;">
+                    Para ver tus proyectos, necesitas configurar tu <strong style="color: #4ECDC4;">USER_ID</strong>:
+                </p>
+                <ol style="text-align: left; max-width: 500px; margin: 1.5rem auto; line-height: 2; font-size: 1rem;">
+                    <li>📂 Abre tu <strong>backoffice</strong> (index.html del backoffice)</li>
+                    <li>🔐 <strong>Inicia sesión</strong> con tu cuenta</li>
+                    <li>⚡ Verás una <strong>alerta emergente</strong> con tu USER_ID</li>
+                    <li>📋 <strong>Copia</strong> ese ID</li>
+                    <li>📝 Pégalo en el archivo <code style="background: #f0f0f0; padding: 4px 8px; border-radius: 4px; font-weight: bold;">portfolio.js</code> (línea 8)</li>
+                </ol>
+                <div style="background: #f8f8f8; padding: 1rem; border-left: 4px solid #4ECDC4; margin: 2rem auto; max-width: 500px; text-align: left;">
+                    <p style="margin: 0; font-family: monospace; font-size: 0.9rem;">
+                        const USER_ID = '<span style="color: #FF6B6B;">TU_ID_AQUI</span>';
+                    </p>
+                </div>
+                <p style="margin-top: 2rem; color: #666; font-size: 0.95rem;">
+                    💡 <strong>Tip:</strong> El USER_ID es único para cada usuario y se muestra automáticamente al hacer login.
+                </p>
+            </div>
+        `;
+        return;
+    }
+
     try {
         
-        const url = USER_ID 
-            ? `${API_URL}/projects/user/${USER_ID}` 
-            : `${API_URL}/projects/public`;
+        const url = `${API_URL}/projects/user/${USER_ID}`;
+        
+        console.log('🔍 Cargando proyectos del usuario:', USER_ID);
 
         const response = await fetch(url, {
             method: 'GET',
@@ -83,44 +121,67 @@ async function loadProjects() {
             }
         });
 
-        
-        if (response.status === 404) {
-            
-            const altResponse = await fetch(`${API_URL}/projects`, {
-                method: 'GET'
-            });
-            
-            if (altResponse.ok) {
-                const data = await altResponse.json();
-                projects = Array.isArray(data) ? data : [];
-                displayProjects();
-                updateProjectCount();
-                return;
-            }
-            
-            
-            loadDemoProjects();
-            return;
-        }
+        console.log('📡 Status de respuesta:', response.status);
 
         if (response.ok) {
             const data = await response.json();
+            console.log('✅ Proyectos recibidos:', data);
+            
             projects = Array.isArray(data) ? data : [];
             displayProjects();
             updateProjectCount();
+        } else if (response.status === 404) {
+            
+            console.log('📭 No se encontraron proyectos para este usuario');
+            projects = [];
+            displayProjects();
+            updateProjectCount();
         } else {
-            loadDemoProjects();
+            throw new Error(`Error del servidor: ${response.status}`);
         }
     } catch (error) {
-        console.error('Error cargando proyectos:', error);
-        loadDemoProjects();
+        console.error('❌ Error cargando proyectos:', error);
+        
+        projectsGrid.innerHTML = `
+            <div style="
+                text-align: center;
+                padding: 2rem;
+                background: white;
+                border: 5px solid #FF6B6B;
+                box-shadow: 5px 5px 0 rgba(0,0,0,0.3);
+                margin: 2rem auto;
+                max-width: 500px;
+                border-radius: 10px;
+            ">
+                <h3 style="color: #FF6B6B; font-family: 'Bangers', cursive; font-size: 1.8rem; margin-bottom: 1rem;">
+                    ❌ ERROR DE CONEXIÓN
+                </h3>
+                <p style="margin-bottom: 1.5rem; line-height: 1.6;">
+                    No se pudieron cargar los proyectos. <br>
+                    <small style="color: #666; font-size: 0.9rem;">${error.message}</small>
+                </p>
+                <button 
+                    onclick="loadProjects()" 
+                    style="
+                        background: #4ECDC4;
+                        color: white;
+                        border: 3px solid black;
+                        padding: 0.75rem 1.5rem;
+                        font-family: 'Bangers', cursive;
+                        font-size: 1.1rem;
+                        cursor: pointer;
+                        box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+                        transition: all 0.2s;
+                        border-radius: 5px;
+                    "
+                    onmouseover="this.style.transform='translate(-2px, -2px)'; this.style.boxShadow='5px 5px 0 rgba(0,0,0,0.3)'"
+                    onmouseout="this.style.transform='translate(0, 0)'; this.style.boxShadow='3px 3px 0 rgba(0,0,0,0.3)'"
+                >
+                    🔄 REINTENTAR
+                </button>
+            </div>
+        `;
     }
-}
-
-function loadDemoProjects() {
-    projects = [];
-    displayProjects();
-    updateProjectCount();
 }
 
 function displayProjects() {
@@ -129,8 +190,26 @@ function displayProjects() {
 
     if (projects.length === 0) {
         projectsGrid.innerHTML = `
-            <div class="empty-message">
-                📭 No hay proyectos disponibles aún.
+            <div style="
+                text-align: center;
+                padding: 3rem 2rem;
+                background: white;
+                border: 5px solid #4ECDC4;
+                box-shadow: 5px 5px 0 rgba(0,0,0,0.3);
+                margin: 2rem auto;
+                max-width: 500px;
+                border-radius: 10px;
+            ">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">📭</div>
+                <h3 style="font-family: 'Bangers', cursive; font-size: 1.5rem; margin-bottom: 1rem; color: #333;">
+                    NO HAY PROYECTOS AÚN
+                </h3>
+                <p style="color: #666; line-height: 1.6; margin-bottom: 1.5rem;">
+                    Los proyectos que crees en el backoffice aparecerán aquí automáticamente.
+                </p>
+                <p style="color: #4ECDC4; font-weight: bold; font-size: 1.1rem;">
+                    🚀 ¡Crea tu primer proyecto!
+                </p>
             </div>
         `;
         return;
@@ -280,6 +359,7 @@ function showNotification(message, type = 'info') {
         align-items: center;
         gap: 1rem;
         animation: slideIn 0.3s ease;
+        border-radius: 5px;
     `;
     notification.innerHTML = `
         <span style="font-size: 1.5rem;">${icons[type]}</span>
@@ -337,3 +417,4 @@ function truncateText(text, maxLength) {
 window.toggleMenu = toggleMenu;
 window.openProjectModal = openProjectModal;
 window.closeProjectModal = closeProjectModal;
+window.loadProjects = loadProjects;
